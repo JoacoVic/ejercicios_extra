@@ -4,8 +4,12 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 import tkinter as tk
+import math
 
 '''
+Alumno = Joaquín Vicente
+División = E
+
 La juguetería El MUNDO DE OCTAVIO nos encarga un programa para conocer qué cantidad de materiales se necesita para la fabricación de distintos juguetes.
 
 COMETA: 
@@ -29,7 +33,7 @@ class App(customtkinter.CTk):
         self.title("UTN FRA")
         self.minsize(320, 250)
 
-        self.label_title = customtkinter.CTkLabel(master=self, text="El Cometa 🪁", font=("Arial", 20, "bold"))
+        self.label_title = customtkinter.CTkLabel(master=self, text="El Cometa", font=("Arial", 20, "bold"))
         self.label_title.grid(row=0, column=0, columnspan=2, padx=20, pady=10)
         
         self.label_diametro_menor = customtkinter.CTkLabel(master=self, text="Diametro Menor DC")
@@ -55,9 +59,37 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        alert("Saludos", "👾😎 Hola clase de los sabados 👾😎")
+        diametro_menor_texto = self.txt_diametro_menor.get()
+        diametro_menor_numero = float(diametro_menor_texto)
+        lados_menores_texto = self.txt_lados_menores.get()
+        lados_menores_numero = float(lados_menores_texto)
+        lados_mayores_texto = self.txt_lados_mayores.get()
+        lados_mayores_numero = float(lados_mayores_texto) 
+
+        diametro_menor_numero_mitad = (diametro_menor_numero / 2)**2
+
+        diametro_mayor1 = math.sqrt(lados_menores_numero**2 - diametro_menor_numero_mitad)
+
+        diametro_mayor2 = math.sqrt(lados_mayores_numero**2 - diametro_menor_numero_mitad)
+
+        diametro_mayor = diametro_mayor1 + diametro_mayor2 
+
+        medida_de_varillas = (lados_mayores_numero * 2 + lados_menores_numero * 2 + diametro_mayor + diametro_menor_numero) / 100
+
+        cantidad_papel = (diametro_mayor * diametro_menor_numero) / 2
+
+        cantidad_papel_total = (cantidad_papel * 1.1) / 100
+
+        varillas_para_10 = medida_de_varillas * 10 
+        papel_para_10 = cantidad_papel_total * 10
+
+        mensaje = f"La medida de las varillas es {medida_de_varillas:.2f} m" 
+        mensaje += f", La cantidad de papel es de {cantidad_papel_total:.2f} m2" 
+        mensaje += f", La medida de las varillas para 10 es {varillas_para_10:.2f}"
+        mensaje += f", La cantidad de papel para 10 es {papel_para_10:.2f}" 
+        alert("" , message= mensaje)  
 
     
-if __name__ == "__main__":
+if __name__ == "__main__": 
     app = App()
     app.mainloop()
