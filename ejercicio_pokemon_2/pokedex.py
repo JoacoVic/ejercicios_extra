@@ -106,7 +106,7 @@ class App(customtkinter.CTk):
                 nombre_psiquico_mas_debil = self.lista_nombre_pokemones[indice]
                 poder_psiquico_mas_debil = self.lista_poder_pokemones[indice]
             indice += 1
-        if poder_psiquico_mas_debil == "":
+        if poder_psiquico_mas_debil == 0:
             alert("Error", "No hay pokemones de tipo psíquico")
         else:
             alert("Informe 3", f"El nombre del pokemon tipo psíquico más debil es {nombre_psiquico_mas_debil} y su poder es {poder_psiquico_mas_debil}")
@@ -252,6 +252,7 @@ class App(customtkinter.CTk):
             acumulador_poderes += poder
             
         promedio_poderes = acumulador_poderes / contador_poderes
+        
         for i, poderes in enumerate(self.lista_poder_pokemones):
             if poderes > promedio_poderes:
                 print(self.lista_nombre_pokemones[i], self.lista_poder_pokemones[i])
